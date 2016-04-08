@@ -23,25 +23,32 @@ FROM yeasy/hyperledger:latest
 ```
 
 ## Local Run
+The image will automatically run the peer, add your sub command and flags at the end.
+
+E.g., see the supported sub commands with the `help` command.
 ```sh
-$ docker run -it yeasy/hyperledger hyperledger
+$ docker run -it yeasy/hyperledger help
 ```
+
+Hyperledger relies on a `core.yaml` file, you can mount your local one by
+```sh
+$ docker run -v your_local_core.yaml:/go/bin/core.yaml -d yeasy/hyperledger help
+```
+
+Your can also mapping the port outside using the `-p` options.
 
 # Which image is based on?
 The image is built based on [golang:1.6](https://hub.docker.com/_/golang) image.
 
 # What has been changed?
-## install libpcap
-Install required  libpcap 0.8.
+## install dependencies
+Install required  libsnappy-dev, zlib1g-dev, libbz2-dev.
+
+## install rocksdb
+Install required  rocksdb 4.1.
 
 ## install hyperledger
-Install hyperledger 1.0.1-x86_64 versin.
-
-## add default conf file
-Add the hyperledger.yml to /etc/hyperledger/.
-
-## download geo data
-Download [geodata](http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz) and put as `/usr/share/GeoIP/GeoLiteCity.dat`.
+Install hyperledger and build the fabric as peer 
 
 # Supported Docker versions
 
