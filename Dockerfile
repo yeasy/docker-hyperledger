@@ -14,11 +14,13 @@ RUN cd /tmp \
  && PORTABLE=1 make shared_lib \
  && INSTALL_PATH=/usr make install-shared
 
-RUN CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go get github.com/hyperledger/fabric \
-                && cd $GOPATH/bin \
-                && mv fabric peer
+RUN mkdir -p $GOPATH/src/github.com/hyperledger \
+        && cd $GOPATH/src/github.com/hyperledger \
+        && git clone --single-branch -b master --depth 1 https://github.com/hyperledger/fabric.git \
+        && cd $GOPATH/src/github.com/hyperledger/fabric \
+        && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go build -o peer
 
 RUN mkdir -p /var/hyperledger/db
 RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin
 
-ENTRYPOINT ["peer"]
+ENTRYPOINT ["$GOPATH/src/github.com/hyperledger/fabric/peer"]
