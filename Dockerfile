@@ -21,7 +21,7 @@ RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go build -o peer
 
 RUN mkdir -p /var/hyperledger/db
-RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin
+#RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin
 
 WORKDIR "$GOPATH/src/github.com/hyperledger/fabric"
 
