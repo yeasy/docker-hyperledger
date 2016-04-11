@@ -14,7 +14,7 @@ RUN cd /tmp \
  && PORTABLE=1 make shared_lib \
  && INSTALL_PATH=/usr make install-shared
 
-RUN CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install github.com/hyperledger/fabric \
+RUN CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go get github.com/hyperledger/fabric \
                 && cd $GOPATH/bin \
                 && mv fabric peer
 
