@@ -23,4 +23,6 @@ RUN mkdir -p $GOPATH/src/github.com/hyperledger \
 RUN mkdir -p /var/hyperledger/db
 RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin
 
-ENTRYPOINT ["$GOPATH/src/github.com/hyperledger/fabric/peer"]
+WORKDIR "$GOPATH/src/github.com/hyperledger/fabric"
+
+ENTRYPOINT ["./peer"]

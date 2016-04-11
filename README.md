@@ -27,15 +27,70 @@ The image will automatically run the peer, add your sub command and flags at the
 
 E.g., see the supported sub commands with the `help` command.
 ```sh
-$ docker run -it yeasy/hyperledger help
+$ docker run --rm -it yeasy/hyperledger help
+06:08:01.446 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
+
+
+Usage:
+  peer [command]
+
+Available Commands:
+  peer        Runs the peer.
+  status      Returns status of the peer.
+  stop        Stops the running peer.
+  login       Logs in a user on CLI.
+  network     Lists all network peers.
+  chaincode   chaincode specific commands.
+  help        Help about any command
+
+Flags:
+      --logging-level="": Default logging level and overrides, see core.yaml for full syntax
+
+
+Use "peer [command] --help" for more information about a command.
 ```
 
 Hyperledger relies on a `core.yaml` file, you can mount your local one by
 ```sh
-$ docker run -v your_local_core.yaml:/go/bin/core.yaml -d yeasy/hyperledger help
+$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml -d yeasy/hyperledger help
 ```
 
-Your can also mapping the port outside using the `-p` options.
+Your can also mapping the port outside using the `-p` options. 
+
+* 5000: REST service listening port (Recommened to open at non-validating node)
+* 30303: Peer service listening port
+* 30304: CLI process use it for callbacks from chain code
+* 31315: Event service on validating node
+
+
+
+A more practical example can be:
+First, start a root validating node:
+```sh
+$ docker run --name=vp1 \
+                    --restart=unless-stopped \
+                    -d \
+                    -it \
+                    -p 5000:5000 \
+                    -p 30303:30303 \
+                    -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml \
+                    -e CORE_PEER_ID=vp1 \
+                    -e CORE_PEER_ADDRESSAUTODETECT=true \
+                    yeasy/hyperledger peer
+```
+Then, start another peer validating node with specify the root node's ip (e.g., `172.17.0.2`):
+```sh
+$ docker run --name=vp2 \
+                    --restart=unless-stopped \
+                    -d \
+                    -it \
+                    -p 5001:5000 \
+                    -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml \
+                    -e CORE_PEER_ID=vp2 \
+                    -e CORE_PEER_ADDRESSAUTODETECT=true \
+                    -e CORE_PEER_DISCOVERY_ROOTNODE=172.17.0.2:30303 \
+                    yeasy/hyperledger peer
+```
 
 # Which image is based on?
 The image is built based on [golang:1.6](https://hub.docker.com/_/golang) image.
