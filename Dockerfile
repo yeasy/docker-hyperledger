@@ -17,7 +17,7 @@ RUN cd /tmp \
 RUN go get -d github.com/hyperledger/fabric \
         && cd $GOPATH/src/github.com/hyperledger/fabric\
         && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go build -o peer \
-        && go install
+        && cp peer /go/bin/
 
 RUN mkdir -p /var/hyperledger/db
 RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin
