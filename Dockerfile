@@ -32,4 +32,4 @@ RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin \
 
 WORKDIR "$GOPATH/src/github.com/hyperledger/fabric"
 
-ENTRYPOINT ["./peer"]
+#ENTRYPOINT ["./peer"]
