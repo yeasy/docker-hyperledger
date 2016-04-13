@@ -28,7 +28,8 @@ RUN mkdir -p /var/hyperledger/db \
         && mkdir -p /var/hyperledger/production
 
 RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin \
-        && cp $GOPATH/src/github.com/hyperledger/fabric/consensus/obcpbft/config.yaml $GOPATH/bin
+        && cp $GOPATH/src/github.com/hyperledger/fabric/consensus/obcpbft/config.yaml $GOPATH/bin \
+        && cp $GOPATH/src/github.com/hyperledger/fabric/peer $GOPATH/bin 
 
 WORKDIR "$GOPATH/src/github.com/hyperledger/fabric"
 
