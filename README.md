@@ -55,6 +55,8 @@ Hyperledger relies on a `core.yaml` file, you can mount your local one by
 $ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml -d yeasy/hyperledger help
 ```
 
+The storage will be under `/var/hyperledger/`, which should be mounted from host for persistent requirement.
+
 Your can also mapping the port outside using the `-p` options. 
 
 * 5000: REST service listening port (Recommened to open at non-validating node)
@@ -67,26 +69,26 @@ Your can also mapping the port outside using the `-p` options.
 A more practical example can be:
 First, start a root validating node:
 ```sh
-$ docker run --name=vp1 \
+$ docker run --name=vp0 \
                     --restart=unless-stopped \
                     -d \
                     -it \
                     -p 5000:5000 \
                     -p 30303:30303 \
                     -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml \
-                    -e CORE_PEER_ID=vp1 \
+                    -e CORE_PEER_ID=vp0 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
                     yeasy/hyperledger peer
 ```
 Then, start another peer validating node with specify the root node's ip (e.g., `172.17.0.2`):
 ```sh
-$ docker run --name=vp2 \
+$ docker run --name=vp1 \
                     --restart=unless-stopped \
                     -d \
                     -it \
                     -p 5001:5000 \
                     -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml \
-                    -e CORE_PEER_ID=vp2 \
+                    -e CORE_PEER_ID=vp1 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
                     -e CORE_PEER_DISCOVERY_ROOTNODE=172.17.0.2:30303 \
                     yeasy/hyperledger peer
