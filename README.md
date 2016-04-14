@@ -1,7 +1,6 @@
 Docker-Hyperledger
 ===
-Docker images for [Hyperledger](https://www.hyperledger.org).
-
+Base Docker images for [Hyperledger](https://www.hyperledger.org).
 
 # Supported tags and respective Dockerfile links
 
@@ -10,12 +9,10 @@ Docker images for [Hyperledger](https://www.hyperledger.org).
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger` GitHub repo](https://github.com/yeasy/docker-hyperledger).
 
 # What is docker-hyperledger?
-Docker image with hyperledger deployed. 
-
+Base Docker image with hyperledger deployed. Your can see [hyperledger-peer](https://hub.docker.com/r/yeasy/hyperledger-peer/) if you want to deploy a hyperledger cluster.
 
 # How to use this image?
 The docker image is auto built at [https://registry.hub.docker.com/u/yeasy/hyperledger/](https://registry.hub.docker.com/u/yeasy/hyperledger/).
-
 
 ## In Dockerfile
 ```sh
@@ -27,7 +24,7 @@ The image will automatically run the peer, add your sub command and flags at the
 
 E.g., see the supported sub commands with the `help` command.
 ```sh
-$ docker run --rm -it yeasy/hyperledger help
+$ docker run --rm -it yeasy/hyperledger fabric help
 06:08:01.446 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
 
 
@@ -48,50 +45,6 @@ Flags:
 
 
 Use "peer [command] --help" for more information about a command.
-```
-
-Hyperledger relies on a `core.yaml` file, you can mount your local one by
-```sh
-$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml -d yeasy/hyperledger help
-```
-
-The storage will be under `/var/hyperledger/`, which should be mounted from host for persistent requirement.
-
-Your can also mapping the port outside using the `-p` options. 
-
-* 5000: REST service listening port (Recommened to open at non-validating node)
-* 30303: Peer service listening port
-* 30304: CLI process use it for callbacks from chain code
-* 31315: Event service on validating node
-
-
-
-A more practical example can be:
-First, start a root validating node:
-```sh
-$ docker run --name=vp0 \
-                    --restart=unless-stopped \
-                    -d \
-                    -it \
-                    -p 5000:5000 \
-                    -p 30303:30303 \
-                    -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml \
-                    -e CORE_PEER_ID=vp0 \
-                    -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    yeasy/hyperledger peer
-```
-Then, start another peer validating node with specify the root node's ip (e.g., `172.17.0.2`):
-```sh
-$ docker run --name=vp1 \
-                    --restart=unless-stopped \
-                    -d \
-                    -it \
-                    -p 5001:5000 \
-                    -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml \
-                    -e CORE_PEER_ID=vp1 \
-                    -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    -e CORE_PEER_DISCOVERY_ROOTNODE=172.17.0.2:30303 \
-                    yeasy/hyperledger peer
 ```
 
 # Which image is based on?
