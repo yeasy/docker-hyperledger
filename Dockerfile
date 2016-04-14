@@ -8,9 +8,28 @@ MAINTAINER Baohua Yang
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
-        && apt-get install -y libsnappy-dev zlib1g-dev libbz2-dev \
+        && apt-get install -y libsnappy-dev zlib1g-dev libbz2-dev software-properties-common curl wget unzip autoconf build-essential libtool \
         && rm -rf /var/cache/apt
 
+# install nodejs
+RUN cd /tmp \
+        && wget --quiet https://nodejs.org/dist/node-v0.12.7/node-v0.12.7-linux-x64.tar.gz \
+        && cd /usr/local \
+        && tar --strip-components 1 -xzf /tmp/node-v0.12.7/node-v0.12.7-linux-x64.tar.gz
+
+# install protoc
+RUN cd /tmp \
+        && git clone https://github.com/google/protobuf.git \
+        && cd protobuf \
+        && git checkout 12fb61b292d7ec4cb14b0d60e58ed5c35adda3b7 \
+        && ./autogen.sh \
+        && ./configure --prefix=/usr \
+        && make \
+        && make check \
+        && make install \
+        && export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+# install rocksdb
 RUN cd /tmp \
  && git clone --single-branch -b v4.1 --depth 1 https://github.com/facebook/rocksdb.git \
  && cd rocksdb \
@@ -18,6 +37,7 @@ RUN cd /tmp \
  && INSTALL_PATH=/usr/local make install-shared \
  && ldconfig
 
+# install hyperledger
 RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && cd $GOPATH/src/github.com/hyperledger \
         && git clone --single-branch -b master --depth 1 https://github.com/hyperledger/fabric.git \
