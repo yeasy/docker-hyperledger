@@ -1,4 +1,4 @@
-# Dockerfile for Hyperledger
+# Dockerfile for Hyperledger base image, with everything to go!
 # Data is stored under /var/hyperledger/db and /var/hyperledger/production
 # Under $GOPATH/bin, there are two config files: core.yaml and config.yaml.
 
@@ -31,6 +31,6 @@ RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin \
         && cp $GOPATH/src/github.com/hyperledger/fabric/consensus/obcpbft/config.yaml $GOPATH/bin \
         && cp $GOPATH/src/github.com/hyperledger/fabric/peer $GOPATH/bin 
 
-WORKDIR "$GOPATH/src/github.com/hyperledger/fabric"
+#WORKDIR "$GOPATH/src/github.com/hyperledger/fabric"
 
 #ENTRYPOINT ["./peer"]
