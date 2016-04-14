@@ -8,14 +8,14 @@ MAINTAINER Baohua Yang
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
-        && apt-get install -y libsnappy-dev zlib1g-dev libbz2-dev software-properties-common curl wget unzip autoconf build-essential libtool \
+        && apt-get install -y libsnappy-dev zlib1g-dev libbz2-dev software-properties-common curl wget unzip autoconf build-essential libtool nodejs \
         && rm -rf /var/cache/apt
 
 # install nodejs
-RUN cd /tmp \
-        && wget --quiet https://nodejs.org/dist/node-v0.12.7/node-v0.12.7-linux-x64.tar.gz \
-        && cd /usr/local \
-        && tar --strip-components 1 -xzf /tmp/node-v0.12.7/node-v0.12.7-linux-x64.tar.gz
+#RUN cd /tmp \
+#&& wget --quiet https://nodejs.org/dist/node-v0.12.7/node-v0.12.7-linux-x64.tar.gz \
+#&& cd /usr/local \
+#&& tar --strip-components 1 -xzf /tmp/node-v0.12.7/node-v0.12.7-linux-x64.tar.gz
 
 # install protoc
 RUN cd /tmp \
