@@ -22,15 +22,11 @@ RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && cd $GOPATH/src/github.com/hyperledger \
         && git clone --single-branch -b master --depth 1 https://github.com/hyperledger/fabric.git \
         && cd $GOPATH/src/github.com/hyperledger/fabric \
-        && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go build -o peer
+        && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go build
 
 RUN mkdir -p /var/hyperledger/db \
         && mkdir -p /var/hyperledger/production
 
 RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin \
         && cp $GOPATH/src/github.com/hyperledger/fabric/consensus/obcpbft/config.yaml $GOPATH/bin \
-        && cp $GOPATH/src/github.com/hyperledger/fabric/peer $GOPATH/bin 
-
-#WORKDIR "$GOPATH/src/github.com/hyperledger/fabric"
-
-#ENTRYPOINT ["./peer"]
+        && cp $GOPATH/src/github.com/hyperledger/fabric/fabric $GOPATH/bin 
