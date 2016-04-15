@@ -5,6 +5,7 @@ Base Docker images for [Hyperledger](https://www.hyperledger.org).
 # Supported tags and respective Dockerfile links
 
 * [`0.1, latest` (latest/Dockerfile)](https://github.com/yeasy/docker-hyperledger/blob/master/Dockerfile)
+* [`dev` (dev/Dockerfile)](https://github.com/yeasy/docker-hyperledger/blob/master/dev/Dockerfile)
 
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger` GitHub repo](https://github.com/yeasy/docker-hyperledger).
 
