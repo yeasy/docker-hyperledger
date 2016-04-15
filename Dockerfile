@@ -19,7 +19,7 @@ RUN apt-get update \
 
 # install protoc
 RUN cd /tmp \
-        && git clone https://github.com/google/protobuf.git \
+        && git clone --single-branch https://github.com/google/protobuf.git \
         && cd protobuf \
         && git checkout 12fb61b292d7ec4cb14b0d60e58ed5c35adda3b7 \
         && ./autogen.sh \
@@ -37,6 +37,9 @@ RUN cd /tmp \
  && INSTALL_PATH=/usr/local make install-shared \
  && ldconfig
 
+RUN mkdir -p /var/hyperledger/db \
+        && mkdir -p /var/hyperledger/production
+
 # install hyperledger
 RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && cd $GOPATH/src/github.com/hyperledger \
@@ -44,8 +47,9 @@ RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && cd $GOPATH/src/github.com/hyperledger/fabric \
         && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install
 
-RUN mkdir -p /var/hyperledger/db \
-        && mkdir -p /var/hyperledger/production
 
 RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin \
         && cp $GOPATH/src/github.com/hyperledger/fabric/consensus/obcpbft/config.yaml $GOPATH/bin
+
+# this is only a workaround for current hard-coded problem.
+RUN ln -s $GOPATH /opt/gopath
