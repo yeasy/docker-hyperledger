@@ -20,32 +20,7 @@ FROM yeasy/hyperledger:latest
 ```
 
 ## Local Run
-The image will automatically run the peer, add your sub command and flags at the end.
-
-E.g., see the supported sub commands with the `help` command.
-```sh
-$ docker run --rm -it yeasy/hyperledger fabric help
-06:08:01.446 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
-
-
-Usage:
-  peer [command]
-
-Available Commands:
-  peer        Runs the peer.
-  status      Returns status of the peer.
-  stop        Stops the running peer.
-  login       Logs in a user on CLI.
-  network     Lists all network peers.
-  chaincode   chaincode specific commands.
-  help        Help about any command
-
-Flags:
-      --logging-level="": Default logging level and overrides, see core.yaml for full syntax
-
-
-Use "peer [command] --help" for more information about a command.
-```
+The image is only for the base environment. So please refer to [hyperledger-peer](https://hub.docker.com/r/yeasy/hyperledger-peer/) if you want a local run.
 
 # Which image is based on?
 The image is built based on [golang:1.6](https://hub.docker.com/_/golang) image.
