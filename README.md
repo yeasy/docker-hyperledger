@@ -10,7 +10,11 @@ Base Docker images for [Hyperledger](https://www.hyperledger.org).
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger` GitHub repo](https://github.com/yeasy/docker-hyperledger).
 
 # What is docker-hyperledger?
-Base Docker image with hyperledger deployed. Your can see [hyperledger-peer](https://hub.docker.com/r/yeasy/hyperledger-peer/) if you want to deploy a hyperledger cluster.
+Base Docker image with hyperledger fabric binaries (peer, membersrvc) deployed. 
+
+Please use the `dev` tag if you want have a full development env with tools like protoc supports.
+
+Your can see [hyperledger-cluster](https://github.com/yeasy/docker-compose-files#hyperledger) if you want to quickly deploy a hyperledger cluster.
 
 # How to use this image?
 The docker image is auto built at [https://registry.hub.docker.com/u/yeasy/hyperledger/](https://registry.hub.docker.com/u/yeasy/hyperledger/).
@@ -34,7 +38,7 @@ Install required  libsnappy-dev, zlib1g-dev, libbz2-dev.
 Install required  rocksdb 4.1.
 
 ## install hyperledger
-Install hyperledger and build the fabric as peer 
+Install hyperledger fabric and install the peer and membersrvc.
 
 # Supported Docker versions
 

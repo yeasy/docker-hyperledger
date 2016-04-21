@@ -1,6 +1,7 @@
-# Dockerfile for Hyperledger base image, with everything to go!
+# Dockerfile for Hyperledger base image, with everything (peer, membersrvc) to go!
+# Workdir is set to $GOPATH.
 # Data is stored under /var/hyperledger/db and /var/hyperledger/production
-# Under $GOPATH/bin, there are two config files: core.yaml and config.yaml.
+# Under $GOPATH/bin, there are 3 config files: core.yaml, membersrvc.yaml and config.yaml.
 
 FROM golang:1.6
 MAINTAINER Baohua Yang
@@ -30,10 +31,13 @@ RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && git clone --single-branch -b master --depth 1 https://github.com/hyperledger/fabric.git \
         && cd $GOPATH/src/github.com/hyperledger/fabric/peer \
         && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install \
+        && go clean \
+        && cd $GOPATH/src/github.com/hyperledger/fabric/membersrvc \
+        && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install \
         && go clean
 
-
 RUN cp $GOPATH/src/github.com/hyperledger/fabric/peer/core.yaml $GOPATH/bin \
+        && cp $GOPATH/src/github.com/hyperledger/fabric/membersrvc/membersrvc.yaml $GOPATH/bin \
         && cp $GOPATH/src/github.com/hyperledger/fabric/consensus/obcpbft/config.yaml $GOPATH/bin
 
 # this is only a workaround for current hard-coded problem.

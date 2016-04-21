@@ -5,7 +5,6 @@
 FROM yeasy/hyperledger
 MAINTAINER Baohua Yang
 
-
 RUN apt-get update \
         && apt-get install -y software-properties-common curl wget unzip autoconf build-essential libtool nodejs \
         && rm -rf /var/cache/apt
