@@ -28,12 +28,12 @@ RUN mkdir -p /var/hyperledger/db \
 RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && cd $GOPATH/src/github.com/hyperledger \
         && git clone --single-branch -b master --depth 1 https://github.com/hyperledger/fabric.git \
-        && cd $GOPATH/src/github.com/hyperledger/fabric \
+        && cd $GOPATH/src/github.com/hyperledger/fabric/peer \
         && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install \
         && go clean
 
 
-RUN cp $GOPATH/src/github.com/hyperledger/fabric/core.yaml $GOPATH/bin \
+RUN cp $GOPATH/src/github.com/hyperledger/fabric/peer/core.yaml $GOPATH/bin \
         && cp $GOPATH/src/github.com/hyperledger/fabric/consensus/obcpbft/config.yaml $GOPATH/bin
 
 # this is only a workaround for current hard-coded problem.
