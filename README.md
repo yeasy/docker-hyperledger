@@ -1,6 +1,13 @@
 Docker-Hyperledger
 ===
-Base Docker images for [Hyperledger](https://www.hyperledger.org).
+Out-of-the-box Docker images for [Hyperledger](https://www.hyperledger.org).
+
+Related images:
+
+* [hyperledger-peer](https://github.com/yeasy/docker-hyperledger-peer): With peer configurated, can be utilized as a peer node (NVP, VP).
+* [hyperledger-membersrvc](https://github.com/yeasy/docker-hyperledger-membersrvc): With the membership service configurated, can be utilized as the authentication node.
+
+If you want to quickly deploy a hyperledger cluster, please see [hyperledger-cluster](https://github.com/yeasy/docker-compose-files#hyperledger).
 
 # Supported tags and respective Dockerfile links
 
@@ -10,11 +17,9 @@ Base Docker images for [Hyperledger](https://www.hyperledger.org).
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger` GitHub repo](https://github.com/yeasy/docker-hyperledger).
 
 # What is docker-hyperledger?
-Base Docker image with hyperledger fabric binaries (peer, membersrvc) deployed. 
+Full functional Docker image with necessary hyperledger fabric binaries (peer, membersrvc) deployed. 
 
-Please use the `dev` tag if you want have a full development env with tools like protoc supports.
-
-Your can see [hyperledger-cluster](https://github.com/yeasy/docker-compose-files#hyperledger) if you want to quickly deploy a hyperledger cluster.
+Please use the `dev` tag if you want have a full development env with tools like protoc and NodeJs supports.
 
 # How to use this image?
 The docker image is auto built at [https://registry.hub.docker.com/u/yeasy/hyperledger/](https://registry.hub.docker.com/u/yeasy/hyperledger/).
