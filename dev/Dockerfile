@@ -2,7 +2,7 @@
 # Data is stored under /var/hyperledger/db and /var/hyperledger/production
 # Under $GOPATH/bin, there are two config files: core.yaml and config.yaml.
 
-FROM yeasy/hyperledger
+FROM yeasy/hyperledger:latest
 MAINTAINER Baohua Yang
 
 RUN apt-get update \

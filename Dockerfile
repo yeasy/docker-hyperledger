@@ -38,7 +38,6 @@ RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && cp membersrvc.yaml $GOPATH/bin/ \
         && go clean
 
-RUN cp $GOPATH/src/github.com/hyperledger/fabric/consensus/obcpbft/config.yaml $GOPATH/bin
 
 WORKDIR $GOPATH/bin
 
