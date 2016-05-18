@@ -1,7 +1,11 @@
 # Dockerfile for Hyperledger base image, with everything (peer, membersrvc) to go!
+# If you need a peer node to run, please see the yeasy/hyperledger-peer image.
 # Workdir is set to $GOPATH.
 # Data is stored under /var/hyperledger/db and /var/hyperledger/production
-# Under $GOPATH/bin, there are 3 config files: core.yaml, membersrvc.yaml and config.yaml.
+
+# Under $GOPATH/bin, there are 2 config files: 
+# core.yaml for peer
+# membersrvc.yaml for mermber service
 
 FROM golang:1.6
 MAINTAINER Baohua Yang
@@ -14,13 +18,13 @@ RUN apt-get update \
 
 # install rocksdb
 RUN cd /tmp \
- && git clone --single-branch -b v4.1 --depth 1 https://github.com/facebook/rocksdb.git \
- && cd rocksdb \
- && PORTABLE=1 make shared_lib \
- && INSTALL_PATH=/usr/local make install-shared \
- && ldconfig \
- && cd / \
- && rm -rf /tmp/rocksdb
+        && git clone --single-branch -b v4.1 --depth 1 https://github.com/facebook/rocksdb.git \
+        && cd rocksdb \
+        && PORTABLE=1 make shared_lib \
+        && INSTALL_PATH=/usr/local make install-shared \
+        && ldconfig \
+        && cd / \
+        && rm -rf /tmp/rocksdb
 
 RUN mkdir -p /var/hyperledger/db \
         && mkdir -p /var/hyperledger/production
@@ -37,7 +41,6 @@ RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install \
         && cp membersrvc.yaml $GOPATH/bin/ \
         && go clean
-
 
 WORKDIR $GOPATH/bin
 
