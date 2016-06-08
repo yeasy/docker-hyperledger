@@ -35,11 +35,12 @@ RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && git clone --single-branch -b master --depth 1 https://github.com/hyperledger/fabric.git \
         && cd $GOPATH/src/github.com/hyperledger/fabric/peer \
         && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install \
-        && cp core.yaml $GOPATH/bin/ \
+#&& cp core.yaml $GOPATH/bin/ \
         && go clean \
         && cd $GOPATH/src/github.com/hyperledger/fabric/membersrvc \
         && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install \
-        && cp membersrvc.yaml $GOPATH/bin/ \
+        && cp $GOPATH/src/github.com/hyperledger/fabric/devenv/limits.conf /etc/security/limits.conf \
+#&& cp membersrvc.yaml $GOPATH/bin/ \
         && go clean
 
 WORKDIR $GOPATH/bin
