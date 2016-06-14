@@ -43,7 +43,10 @@ RUN mkdir -p $GOPATH/src/github.com/hyperledger \
 #&& cp membersrvc.yaml $GOPATH/bin/ \
         && go clean
 
-WORKDIR $GOPATH/bin
-
 # this is only a workaround for current hard-coded problem.
 RUN ln -s $GOPATH /opt/gopath
+
+# this is to keep compatible
+RUN PATH=$GOPATH/src/github.com/hyperledger/fabric/build/bin:$PATH
+
+WORKDIR $GOPATH/src/github.com/hyperledger/fabric
