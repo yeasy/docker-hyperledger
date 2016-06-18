@@ -36,8 +36,8 @@ RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && go clean \
         && cd $GOPATH/src/github.com/hyperledger/fabric/membersrvc \
         && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install \
-        && cp $GOPATH/src/github.com/hyperledger/fabric/devenv/limits.conf /etc/security/limits.conf \
-        && go clean
+        && go clean \
+        && cp $GOPATH/src/github.com/hyperledger/fabric/devenv/limits.conf /etc/security/limits.conf
 
 # this is only a workaround for current hard-coded problem when using as fabric-baseimage.
 RUN ln -s $GOPATH /opt/gopath
