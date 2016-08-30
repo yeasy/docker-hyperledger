@@ -6,7 +6,18 @@ FROM yeasy/hyperledger:latest
 MAINTAINER Baohua Yang
 
 RUN apt-get update \
-        && apt-get install -y software-properties-common curl wget unzip autoconf build-essential libtool nodejs python-dev python-pip \
+        && apt-get install -y \
+            autoconf \
+            automake \
+            build-essential \
+            curl \
+            libtool \
+            nodejs \
+            python-dev \
+            python-pip \
+            software-properties-common \
+            unzip \
+            wget \
         && rm -rf /var/cache/apt
 
 # install nodejs
