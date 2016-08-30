@@ -28,9 +28,12 @@ RUN apt-get update \
 
 # install protoc
 RUN cd /tmp \
-        && git clone --single-branch https://github.com/google/protobuf.git \
-        && cd protobuf \
-        && git checkout v3.0.0 \
+#&& git clone --single-branch https://github.com/google/protobuf.git \
+#&& cd protobuf \
+#&& git checkout v3.0.0 \
+        && wget --quiet https://github.com/google/protobuf/archive/v3.0.0.tar.gz \
+        && tar xpzf v3.0.0.tar.gz \
+        && cd protobuf-3.0.0 \
         && ./autogen.sh \
         && ./configure --prefix=/usr \
         && make \
