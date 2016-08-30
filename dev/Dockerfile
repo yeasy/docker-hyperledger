@@ -19,7 +19,7 @@ RUN apt-get update \
 RUN cd /tmp \
         && git clone --single-branch https://github.com/google/protobuf.git \
         && cd protobuf \
-        && git checkout 12fb61b292d7ec4cb14b0d60e58ed5c35adda3b7 \
+        && git checkout v3.0.0 \
         && ./autogen.sh \
         && ./configure --prefix=/usr \
         && make \
