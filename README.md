@@ -11,7 +11,9 @@ If you want to quickly deploy a hyperledger cluster, please see [hyperledger-clu
 
 # Supported tags and respective Dockerfile links
 
-* [`0.1, latest` (latest/Dockerfile)](https://github.com/yeasy/docker-hyperledger/blob/master/Dockerfile)
+* [`latest` (Dockerfile)](https://github.com/yeasy/docker-hyperledger/blob/master/Dockerfile)
+* [`0.6-dp` (Dockerfile)](https://github.com/yeasy/docker-hyperledger/blob/0.6-dp/Dockerfile)
+* [`0.5-dp` (Dockerfile)](https://github.com/yeasy/docker-hyperledger/blob/0.5-dp/Dockerfile)
 * [`dev` (dev/Dockerfile)](https://github.com/yeasy/docker-hyperledger/blob/master/dev/Dockerfile)
 
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger` GitHub repo](https://github.com/yeasy/docker-hyperledger).
