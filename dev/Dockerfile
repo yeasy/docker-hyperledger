@@ -31,9 +31,9 @@ RUN cd /tmp \
 #&& git clone --single-branch https://github.com/google/protobuf.git \
 #&& cd protobuf \
 #&& git checkout v3.0.0 \
-        && wget --quiet https://github.com/google/protobuf/releases/download/v3.0.0/protoc-3.0.0-linux-x86_64.zip \
-        && tar xpzf v3.0.0.tar.gz \
-        && cd protobuf-3.0.0 \
+        && wget --quiet https://github.com/google/protobuf/archive/v3.0.2.tar.gz \
+        && tar xpzf v3.0.2.tar.gz \
+        && cd protobuf-3.0.2 \
         && ./autogen.sh \
         && ./configure --prefix=/usr \
         && make \
