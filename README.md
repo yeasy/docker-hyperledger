@@ -1,5 +1,8 @@
 Docker-Hyperledger
 ===
+
+This is deprecated, pls see [hyperledger-fabric-peer]((https://github.com/yeasy/docker-hyperledger-fabric-peer).
+
 Out-of-the-box Docker images for [Hyperledger](https://www.hyperledger.org).
 
 Related images:
